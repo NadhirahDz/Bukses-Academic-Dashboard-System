@@ -21,6 +21,14 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const LoginPage(),
+        '/home': (context) {
+          final args =
+              ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          return HomeMenuPage(
+            name: args['name'] ?? 'User',
+            role: args['role'] ?? 'teacher_form4',
+          );
+        },
         '/admin': (context) {
           final name = ModalRoute.of(context)!.settings.arguments as String;
           return HomeMenuPage(name: name, role: 'admin');

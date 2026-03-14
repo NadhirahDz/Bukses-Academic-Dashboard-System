@@ -16,14 +16,14 @@ class _DashboardPageState extends State<DashboardPage> {
   late String role;
   late String viewId;
 
-  // Add your dashboard URLs here
+  // Dashboard URLs here
   final Map<String, String> dashboardUrls = {
     'admin':
         'https://lookerstudio.google.com/embed/reporting/4d52ceca-bdba-4dd5-8896-617036cee9c6/page/KMtjF',
     'teacher_form4':
-        'https://lookerstudio.google.com/embed/reporting/PLACEHOLDER_FORM4/page/XXXXX',
+        'https://lookerstudio.google.com/embed/reporting/ecb73835-335d-4792-92a8-02db246b0b6b/page/p_hgvwo4uj1d',
     'teacher_form5':
-        'https://lookerstudio.google.com/embed/reporting/PLACEHOLDER_FORM5/page/XXXXX',
+        'https://lookerstudio.google.com/embed/reporting/766f40a4-1028-45bc-9a38-3dc8b09a1bca/page/p_nhnn913n1d',
   };
 
   @override

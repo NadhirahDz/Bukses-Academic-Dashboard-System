@@ -350,67 +350,59 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void loginUser() {
-    String email = emailController.text.trim();
+  Future<void> loginUser() async {
+    String email = emailController.text.trim(); 
     String password = passwordController.text.trim();
 
-    if (email.isEmpty || password.isEmpty) {
-      _showSnackBar('Sila isi email dan kata laluan', Colors.red);
-      return;
-    }
+    if (email.isEmpty || password.isEmpty) return;
 
     setState(() => isLoading = true);
 
-    http
-        .post(
-          Uri.parse('${MyConfig.apiUrl}/login.php'),
-          headers: {"Content-Type": "application/json"},
-          body: jsonEncode({
-            'email': email,
-            'password': password,
-          }),
-        )
-        .timeout(const Duration(seconds: 10))
-        .then((response) {
+    var url = Uri.parse('${MyConfig.apiUrl}/login.php');
+
+    try {
+      var response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({"email": email, "password": password}),
+      );
+
       setState(() => isLoading = false);
 
       if (response.statusCode == 200) {
-        var jsonResponse = response.body;
-        var resarray = jsonDecode(jsonResponse);
-        log(jsonResponse);
+        var data = jsonDecode(response.body);
+        log(data.toString());
 
-        if (resarray['success'] == true) {
-          final data = resarray['data'][0];
-          final role = data['role'].toString();
-          final name = data['name'].toString();
-
-          _showSnackBar('Selamat datang, $name!', Colors.green);
-
-          Future.delayed(const Duration(milliseconds: 500), () {
-            if (!mounted) return;
-            if (role == 'admin') {
-              Navigator.pushReplacementNamed(context, '/admin',
-                  arguments: name);
-            } else if (role == 'teacher_form4') {
-              Navigator.pushReplacementNamed(context, '/teacher4',
-                  arguments: name);
-            } else if (role == 'teacher_form5') {
-              Navigator.pushReplacementNamed(context, '/teacher5',
-                  arguments: name);
-            }
-          });
+        if (data['success'] == true) {
+          _showSnackBar("Login successful!", Colors.green);
+          
+          // Extract user data from response
+          var userInfo = data['data'][0]; // Get first user record
+          String userName = userInfo['name'] ?? 'User';
+          String userRole = userInfo['role'] ?? 'teacher_form4';
+          
+          // Navigate to home page with user info
+          if (mounted) {
+            Navigator.pushReplacementNamed(
+              context,
+              '/home',
+              arguments: {
+                'name': userName,
+                'role': userRole,
+              },
+            );
+          }
         } else {
-          _showSnackBar(
-              resarray['message'] ?? 'Log masuk gagal', Colors.red);
+          _showSnackBar(data['message'] ?? "Login failed", Colors.red);
         }
       } else {
-        _showSnackBar('Log masuk gagal. Sila cuba semula.', Colors.red);
+        _showSnackBar("Server error: ${response.statusCode}", Colors.red);
       }
-    }).catchError((error) {
+    } catch (e) {
       setState(() => isLoading = false);
-      log("Error: $error");
-      _showSnackBar('Ralat sambungan. Sila cuba semula.', Colors.red);
-    });
+      log("Error: $e");
+      _showSnackBar("Ralat sambungan. Sila cuba semula.", Colors.red);
+    }
   }
 
   void _showSnackBar(String message, Color color) {
