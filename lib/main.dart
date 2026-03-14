@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:school/dashboard_page.dart';
 import 'package:school/home_page.dart';
+import 'package:school/upload_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login_page.dart';
 
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
           return HomeMenuPage(name: name, role: 'teacher_form5');
         },
         '/dashboard': (context) => const DashboardPage(),
-        '/update': (context) => const Placeholder(),
+        '/update': (context) => const UploadPage(),
       },
     );
   }
