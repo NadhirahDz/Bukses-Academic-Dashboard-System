@@ -163,242 +163,261 @@ class _LoginPageState extends State<LoginPage>
                 opacity: _fadeAnim,
                 child: SlideTransition(
                   position: _slideAnim,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // School Logo
-                      Container(
-                        width: 110,
-                        height: 110,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              blurRadius: 20,
-                              offset: const Offset(0, 8),
-                            ),
-                          ],
-                        ),
-                        child: ClipOval(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(
-                              'assets/images/LogoSekolah.png',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 20),
-
-                      const Text(
-                        'Sistem Prestasi Pelajar',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.5,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'SMKBBKH',
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.75),
-                          fontSize: 14,
-                          letterSpacing: 2,
-                        ),
-                      ),
-
-                      const SizedBox(height: 32),
-
-                      // Login card
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(24),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.15),
-                              blurRadius: 30,
-                              offset: const Offset(0, 12),
-                            ),
-                          ],
-                        ),
-                        padding: const EdgeInsets.all(28),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Log Masuk',
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                                color: kEmeraldDeep,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              'Masukkan maklumat akaun anda',
-                              style: TextStyle(
-                                fontSize: 13,
-                                color: Colors.grey[500],
-                              ),
-                            ),
-                            const SizedBox(height: 24),
-
-                            _buildTextField(
-                              controller: _emailController,
-                              label: 'Emel',
-                              hint: 'contoh@gmail.com',
-                              icon: Icons.email_outlined,
-                              keyboardType: TextInputType.emailAddress,
-                            ),
-
-                            const SizedBox(height: 16),
-
-                            _buildTextField(
-                              controller: _passwordController,
-                              label: 'Kata Laluan',
-                              hint: '••••••••',
-                              icon: Icons.lock_outline,
-                              obscure: _obscurePassword,
-                              suffix: IconButton(
-                                icon: Icon(
-                                  _obscurePassword
-                                      ? Icons.visibility_off_outlined
-                                      : Icons.visibility_outlined,
-                                  color: Colors.grey,
-                                  size: 20,
-                                ),
-                                onPressed: () => setState(() =>
-                                    _obscurePassword = !_obscurePassword),
-                              ),
-                            ),
-
-                            const SizedBox(height: 12),
-
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: Checkbox(
-                                    value: _rememberMe,
-                                    onChanged: (v) =>
-                                        setState(() => _rememberMe = v!),
-                                    activeColor: kEmerald,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  'Ingat saya',
-                                  style: TextStyle(
-                                    color: Colors.grey[600],
-                                    fontSize: 13,
-                                  ),
+                  child: Center(
+                    child: ConstrainedBox(
+                      // ✅ Limit max width for laptop screens
+                      constraints: const BoxConstraints(maxWidth: 480),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // School Logo
+                          Container(
+                            width: 110,
+                            height: 110,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  blurRadius: 20,
+                                  offset: const Offset(0, 8),
                                 ),
                               ],
                             ),
+                            child: ClipOval(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.asset(
+                                  'assets/images/LogoSekolah.png',
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
+                          ),
 
-                            const SizedBox(height: 24),
+                          const SizedBox(height: 20),
 
-                            SizedBox(
-                              width: double.infinity,
-                              height: 52,
-                              child: ElevatedButton(
-                                onPressed: _isLoading ? null : _login,
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: kEmerald,
-                                  foregroundColor: Colors.white,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(14),
+                          const Text(
+                            'Sistem Prestasi Pelajar',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'SMKBBKH',
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.75),
+                              fontSize: 14,
+                              letterSpacing: 2,
+                            ),
+                          ),
+
+                          const SizedBox(height: 32),
+
+                          // Login card
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(24),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.15),
+                                  blurRadius: 30,
+                                  offset: const Offset(0, 12),
+                                ),
+                              ],
+                            ),
+                            padding: const EdgeInsets.all(28),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'Log Masuk',
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                    color: kEmeraldDeep,
                                   ),
                                 ),
-                                child: _isLoading
-                                    ? const SizedBox(
-                                        width: 22,
-                                        height: 22,
-                                        child: CircularProgressIndicator(
-                                          color: Colors.white,
-                                          strokeWidth: 2.5,
-                                        ),
-                                      )
-                                    : const Text(
-                                        'Log Masuk',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
+                                const SizedBox(height: 4),
+                                Text(
+                                  'Masukkan maklumat akaun anda',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: Colors.grey[500],
+                                  ),
+                                ),
+                                const SizedBox(height: 24),
+
+                                _buildTextField(
+                                  controller: _emailController,
+                                  label: 'Emel',
+                                  hint: 'contoh@gmail.com',
+                                  icon: Icons.email_outlined,
+                                  keyboardType: TextInputType.emailAddress,
+                                ),
+
+                                const SizedBox(height: 16),
+
+                                _buildTextField(
+                                  controller: _passwordController,
+                                  label: 'Kata Laluan',
+                                  hint: '••••••••',
+                                  icon: Icons.lock_outline,
+                                  obscure: _obscurePassword,
+                                  suffix: IconButton(
+                                    icon: Icon(
+                                      _obscurePassword
+                                          ? Icons.visibility_off_outlined
+                                          : Icons.visibility_outlined,
+                                      color: Colors.grey,
+                                      size: 20,
+                                    ),
+                                    onPressed: () => setState(() =>
+                                        _obscurePassword = !_obscurePassword),
+                                  ),
+                                ),
+
+                                const SizedBox(height: 12),
+
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 20,
+                                      height: 20,
+                                      child: Checkbox(
+                                        value: _rememberMe,
+                                        onChanged: (v) =>
+                                            setState(() => _rememberMe = v!),
+                                        activeColor: kEmerald,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(4),
                                         ),
                                       ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      'Ingat saya',
+                                      style: TextStyle(
+                                        color: Colors.grey[600],
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                  ],
+                                ),
 
-                      const SizedBox(height: 20),
+                                const SizedBox(height: 24),
 
-                      // Credentials hint card
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.12),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: Colors.white.withOpacity(0.25),
-                          ),
-                        ),
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                const Icon(Icons.info_outline,
-                                    color: kEmeraldLight, size: 16),
-                                const SizedBox(width: 6),
-                                Text(
-                                  'Maklumat Log Masuk',
-                                  style: TextStyle(
-                                    color: Colors.white.withOpacity(0.9),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13,
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: 52,
+                                  child: ElevatedButton(
+                                    onPressed: _isLoading ? null : _login,
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: kEmerald,
+                                      foregroundColor: Colors.white,
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(14),
+                                      ),
+                                    ),
+                                    child: _isLoading
+                                        ? const SizedBox(
+                                            width: 22,
+                                            height: 22,
+                                            child: CircularProgressIndicator(
+                                              color: Colors.white,
+                                              strokeWidth: 2.5,
+                                            ),
+                                          )
+                                        : const Text(
+                                            'Log Masuk',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              letterSpacing: 0.5,
+                                            ),
+                                          ),
                                   ),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 10),
-                            _buildCredentialRow(
-                              '👩‍🏫 Cikgu Tingkatan 4',
-                              'cikguT4@gmail.com',
-                              'tingkatan4',
-                            ),
-                            const SizedBox(height: 6),
-                            _buildCredentialRow(
-                              '👩‍🏫 Cikgu Tingkatan 5',
-                              'cikguT5@gmail.com',
-                              'tingkatan5',
-                            ),
-                            const SizedBox(height: 6),
-                            _buildCredentialRow(
-                              '🏫 Pentadbir',
-                              'pentadbir@gmail.com',
-                              'pentadbir123',
-                            ),
-                          ],
-                        ),
-                      ),
+                          ),
 
-                      const SizedBox(height: 16),
-                    ],
+                          const SizedBox(height: 20),
+
+                          // ✅ Credentials hint card - side by side
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.12),
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(
+                                color: Colors.white.withOpacity(0.25),
+                              ),
+                            ),
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Icon(Icons.info_outline,
+                                        color: kEmeraldLight, size: 16),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      'Maklumat Log Masuk',
+                                      style: TextStyle(
+                                        color: Colors.white.withOpacity(0.9),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                // ✅ 3 credentials in one row
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: _buildCredentialRow(
+                                        '👩‍🏫 Cikgu T4',
+                                        'cikguT4@gmail.com',
+                                        'tingkatan4',
+                                      ),
+                                    ),
+                                    const SizedBox(width: 6),
+                                    Expanded(
+                                      child: _buildCredentialRow(
+                                        '👩‍🏫 Cikgu T5',
+                                        'cikguT5@gmail.com',
+                                        'tingkatan5',
+                                      ),
+                                    ),
+                                    const SizedBox(width: 6),
+                                    Expanded(
+                                      child: _buildCredentialRow(
+                                        '🏫 Pentadbir',
+                                        'pentadbir@gmail.com',
+                                        'pentadbir123',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          const SizedBox(height: 16),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -464,7 +483,7 @@ class _LoginPageState extends State<LoginPage>
 
   Widget _buildCredentialRow(String role, String email, String password) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.08),
         borderRadius: BorderRadius.circular(8),
@@ -477,22 +496,23 @@ class _LoginPageState extends State<LoginPage>
             style: const TextStyle(
               color: kEmeraldLight,
               fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            'Emel: $email',
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.85),
               fontSize: 11,
             ),
           ),
+          const SizedBox(height: 3),
           Text(
-            'Kata laluan: $password',
+            email,
             style: TextStyle(
               color: Colors.white.withOpacity(0.85),
-              fontSize: 11,
+              fontSize: 10,
+            ),
+            overflow: TextOverflow.ellipsis,
+          ),
+          Text(
+            password,
+            style: TextStyle(
+              color: Colors.white.withOpacity(0.85),
+              fontSize: 10,
             ),
           ),
         ],

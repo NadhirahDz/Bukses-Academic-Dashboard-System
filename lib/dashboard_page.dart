@@ -16,7 +16,9 @@ class _DashboardPageState extends State<DashboardPage> {
   late String role;
   late String viewId;
 
-  // Dashboard URLs here
+  static const Color kEmerald = Color(0xFF059669);
+  static const Color kEmeraldDeep = Color(0xFF064E3B);
+
   final Map<String, String> dashboardUrls = {
     'admin':
         'https://lookerstudio.google.com/embed/reporting/4d52ceca-bdba-4dd5-8896-617036cee9c6/page/KMtjF',
@@ -57,7 +59,7 @@ class _DashboardPageState extends State<DashboardPage> {
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF1565C0), Color(0xFF0e9f6e)],
+              colors: [kEmeraldDeep, kEmerald],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
@@ -71,14 +73,8 @@ class _DashboardPageState extends State<DashboardPage> {
           children: [
             Text(
               _getDashboardTitle(role),
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              'Semester 1, 2025',
-              style: TextStyle(
-                fontSize: 11,
-                color: Colors.white.withOpacity(0.8),
-              ),
+              style: const TextStyle(
+                  fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ],
         ),

@@ -4,6 +4,11 @@ class HomeMenuPage extends StatelessWidget {
   final String name;
   final String role;
 
+  static const Color kEmerald = Color(0xFF059669);
+  static const Color kEmeraldDark = Color(0xFF047857);
+  static const Color kEmeraldDeep = Color(0xFF064E3B);
+  static const Color kEmeraldLight = Color(0xFF6EE7B7);
+
   const HomeMenuPage({super.key, required this.name, required this.role});
 
   @override
@@ -15,9 +20,9 @@ class HomeMenuPage extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color(0xFF1565C0),
-              Color(0xFF1976D2),
-              Color(0xFF42A5F5),
+              kEmeraldDeep,
+              kEmeraldDark,
+              kEmerald,
             ],
           ),
         ),
@@ -31,57 +36,109 @@ class HomeMenuPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: [
-                        Text(
-                          'Selamat Datang,',
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.85),
-                            fontSize: 16,
+                        // Avatar circle
+                        Container(
+                          width: 48,
+                          height: 48,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.5),
+                              width: 2,
+                            ),
                           ),
-                        ),
-                        Text(
-                          name,
-                          style: const TextStyle(
+                          child: const Icon(
+                            Icons.person,
                             color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
+                            size: 26,
                           ),
                         ),
-                        Text(
-                          _getRoleLabel(role),
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.75),
-                            fontSize: 13,
-                          ),
+                        const SizedBox(width: 14),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Selamat Datang,',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.8),
+                                fontSize: 13,
+                              ),
+                            ),
+                            Text(
+                              name,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 2),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Text(
+                                _getRoleLabel(role),
+                                style: const TextStyle(
+                                  color: kEmeraldLight,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/');
-                      },
-                      icon: const Icon(Icons.logout, color: Colors.white),
-                      tooltip: 'Log Keluar',
+                    // Logout button
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.3),
+                        ),
+                      ),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, '/');
+                        },
+                        icon: const Icon(Icons.logout, color: Colors.white),
+                        tooltip: 'Log Keluar',
+                      ),
                     ),
                   ],
                 ),
 
-                const SizedBox(height: 48),
+                const SizedBox(height: 40),
+
+                // Divider
+                Container(
+                  height: 1,
+                  color: Colors.white.withOpacity(0.15),
+                ),
+
+                const SizedBox(height: 32),
 
                 // Title
-                const Text(
+                Text(
                   'Pilih Tindakan',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                    color: Colors.white.withOpacity(0.7),
+                    fontSize: 13,
+                    letterSpacing: 1.5,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 16),
 
-                // Two menu boxes
+                // Two menu cards
                 Expanded(
                   child: Row(
                     children: [
@@ -89,10 +146,10 @@ class HomeMenuPage extends StatelessWidget {
                       Expanded(
                         child: _buildMenuCard(
                           context,
-                          icon: Icons.dashboard,
+                          icon: Icons.dashboard_rounded,
                           title: 'Lihat\nDashboard',
                           subtitle: 'Papar prestasi pelajar',
-                          color: Colors.white,
+                          iconBgColor: kEmerald,
                           onTap: () {
                             Navigator.pushNamed(
                               context,
@@ -107,10 +164,10 @@ class HomeMenuPage extends StatelessWidget {
                       Expanded(
                         child: _buildMenuCard(
                           context,
-                          icon: Icons.upload_file,
+                          icon: Icons.upload_file_rounded,
                           title: 'Kemaskini\nData',
                           subtitle: 'Muat naik fail / data',
-                          color: Colors.white,
+                          iconBgColor: kEmeraldDark,
                           onTap: () {
                             Navigator.pushNamed(
                               context,
@@ -121,6 +178,19 @@ class HomeMenuPage extends StatelessWidget {
                         ),
                       ),
                     ],
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                // Footer
+                Center(
+                  child: Text(
+                    'Sistem Prestasi Pelajar SMKBBKH',
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.4),
+                      fontSize: 11,
+                    ),
                   ),
                 ),
               ],
@@ -136,19 +206,19 @@ class HomeMenuPage extends StatelessWidget {
     required IconData icon,
     required String title,
     required String subtitle,
-    required Color color,
+    required Color iconBgColor,
     required VoidCallback onTap,
   }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.95),
-          borderRadius: BorderRadius.circular(20),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.15),
-              blurRadius: 15,
+              blurRadius: 20,
               offset: const Offset(0, 8),
             ),
           ],
@@ -158,15 +228,29 @@ class HomeMenuPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, size: 64, color: const Color(0xFF1565C0)),
-              const SizedBox(height: 16),
+              // Icon container
+              Container(
+                width: 72,
+                height: 72,
+                decoration: BoxDecoration(
+                  color: iconBgColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Icon(
+                  icon,
+                  size: 36,
+                  color: iconBgColor,
+                ),
+              ),
+              const SizedBox(height: 20),
               Text(
                 title,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  fontSize: 18,
+                  fontSize: 17,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1565C0),
+                  color: kEmeraldDeep,
+                  height: 1.3,
                 ),
               ),
               const SizedBox(height: 8),
@@ -175,7 +259,36 @@ class HomeMenuPage extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 12,
-                  color: Colors.grey[600],
+                  color: Colors.grey[500],
+                ),
+              ),
+              const SizedBox(height: 16),
+              // Arrow indicator
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                decoration: BoxDecoration(
+                  color: iconBgColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Buka',
+                      style: TextStyle(
+                        color: iconBgColor,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Icon(
+                      Icons.arrow_forward_rounded,
+                      color: iconBgColor,
+                      size: 14,
+                    ),
+                  ],
                 ),
               ),
             ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:school/dashboard_page.dart';
 import 'package:school/home_page.dart';
+import 'package:school/splashscreen.dart';
 import 'package:school/upload_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login_page.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Sistem Sekolah',
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: '/splash',
       routes: {
         '/': (context) => const LoginPage(),
         '/home': (context) {
@@ -54,6 +55,8 @@ class MyApp extends StatelessWidget {
             role: 'teacher_form5',
           );
         },
+        '/splash': (context) => const SplashScreen(),
+        '/': (context) => const LoginPage(),
         '/dashboard': (context) => const DashboardPage(),
         '/update': (context) => const UploadPage(),
       },

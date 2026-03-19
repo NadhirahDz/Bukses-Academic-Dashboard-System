@@ -20,6 +20,11 @@ class _UploadPageState extends State<UploadPage> {
   bool _isSuccess = false;
   String _selectedTingkatan = '4';
 
+  static const Color kEmerald = Color(0xFF059669);
+  static const Color kEmeraldDark = Color(0xFF047857);
+  static const Color kEmeraldDeep = Color(0xFF064E3B);
+  static const Color kEmeraldLight = Color(0xFF6EE7B7);
+
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -95,14 +100,13 @@ class _UploadPageState extends State<UploadPage> {
     final args =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     final name = args?['name'] ?? '';
-    final role = args?['role'] ?? '';
 
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF1565C0), Color(0xFF0e9f6e)],
+              colors: [kEmeraldDeep, kEmerald],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
@@ -159,11 +163,18 @@ class _UploadPageState extends State<UploadPage> {
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [Color(0xFF1565C0), Color(0xFF0e9f6e)],
+                  colors: [kEmeraldDeep, kEmerald],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
                 borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: kEmerald.withOpacity(0.3),
+                    blurRadius: 12,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
               ),
               child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,9 +203,13 @@ class _UploadPageState extends State<UploadPage> {
             // Tingkatan selector
             const Text(
               'Pilih Tingkatan',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: kEmeraldDeep,
+              ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 10),
             Row(
               children: [
                 _tingkatanButton('4'),
@@ -208,25 +223,26 @@ class _UploadPageState extends State<UploadPage> {
             // File picker area
             const Text(
               'Pilih Fail Excel',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: kEmeraldDeep,
+              ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 10),
             GestureDetector(
               onTap: _pickFile,
               child: Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(24),
+                padding: const EdgeInsets.all(28),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: _fileBytes != null
-                        ? const Color(0xFF0e9f6e)
-                        : Colors.grey.shade300,
+                    color: _fileBytes != null ? kEmerald : Colors.grey.shade300,
                     width: 2,
-                    style: BorderStyle.solid,
                   ),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(16),
                   color: _fileBytes != null
-                      ? const Color(0xFF0e9f6e).withOpacity(0.05)
+                      ? kEmerald.withOpacity(0.05)
                       : Colors.grey.shade50,
                 ),
                 child: Column(
@@ -236,9 +252,7 @@ class _UploadPageState extends State<UploadPage> {
                           ? Icons.check_circle
                           : Icons.cloud_upload_outlined,
                       size: 48,
-                      color: _fileBytes != null
-                          ? const Color(0xFF0e9f6e)
-                          : Colors.grey,
+                      color: _fileBytes != null ? kEmerald : Colors.grey,
                     ),
                     const SizedBox(height: 12),
                     Text(
@@ -247,9 +261,7 @@ class _UploadPageState extends State<UploadPage> {
                           : 'Klik untuk pilih fail Excel (.xlsx)',
                       style: TextStyle(
                         fontSize: 14,
-                        color: _fileBytes != null
-                            ? const Color(0xFF0e9f6e)
-                            : Colors.grey,
+                        color: _fileBytes != null ? kEmerald : Colors.grey,
                         fontWeight: _fileBytes != null
                             ? FontWeight.bold
                             : FontWeight.normal,
@@ -267,15 +279,17 @@ class _UploadPageState extends State<UploadPage> {
               ),
             ),
 
-            const SizedBox(height: 12),
-
-            // Change file button
-            if (_fileBytes != null)
+            if (_fileBytes != null) ...[
+              const SizedBox(height: 8),
               TextButton.icon(
                 onPressed: _pickFile,
-                icon: const Icon(Icons.refresh),
-                label: const Text('Tukar Fail'),
+                icon: const Icon(Icons.refresh, color: kEmerald),
+                label: const Text(
+                  'Tukar Fail',
+                  style: TextStyle(color: kEmerald),
+                ),
               ),
+            ],
 
             const SizedBox(height: 24),
 
@@ -283,36 +297,35 @@ class _UploadPageState extends State<UploadPage> {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.blue.shade50,
+                color: kEmerald.withOpacity(0.05),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.blue.shade200),
+                border: Border.all(color: kEmerald.withOpacity(0.3)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.info_outline,
-                          color: Colors.blue.shade700, size: 18),
+                      const Icon(Icons.info_outline,
+                          color: kEmeraldDark, size: 18),
                       const SizedBox(width: 8),
-                      Text(
+                      const Text(
                         'Panduan Fail Excel',
                         style: TextStyle(
-                          color: Colors.blue.shade700,
+                          color: kEmeraldDeep,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
-                  const Text('• Sheet mesti dinamakan seperti "4 SAB", "4 SO", "4 SU"',
-                      style: TextStyle(fontSize: 13)),
-                  const Text('• Header mesti ada "NAMA PELAJAR", "KELAS"',
-                      style: TextStyle(fontSize: 13)),
-                  const Text('• Kolum subjek: BM, SJ, MATE, BI, PI, SN, ST, SK, GEO, PSV',
-                      style: TextStyle(fontSize: 13)),
-                  const Text('• Kolum gred: BM G, SJ G, MATE G, dll.',
-                      style: TextStyle(fontSize: 13)),
+                  const SizedBox(height: 10),
+                  _buildGuideRow(
+                      '• Sheet mesti dinamakan seperti "4 SAB", "4 SO", "4 SU"'),
+                  _buildGuideRow(
+                      '• Header mesti ada "NAMA PELAJAR", "KELAS"'),
+                  _buildGuideRow(
+                      '• Kolum subjek: BM, SJ, MATE, BI, PI, SN, ST, SK, GEO, PSV'),
+                  _buildGuideRow('• Kolum gred: BM G, SJ G, MATE G, dll.'),
                 ],
               ),
             ),
@@ -336,14 +349,18 @@ class _UploadPageState extends State<UploadPage> {
                       )
                     : const Icon(Icons.cloud_upload),
                 label: Text(
-                  _isLoading ? 'Sedang memproses...' : 'Muat Naik & Proses Data',
-                  style: const TextStyle(fontSize: 16),
+                  _isLoading
+                      ? 'Sedang memproses...'
+                      : 'Muat Naik & Proses Data',
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1565C0),
+                  backgroundColor: kEmerald,
                   foregroundColor: Colors.white,
+                  elevation: 0,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(14),
                   ),
                 ),
               ),
@@ -357,28 +374,37 @@ class _UploadPageState extends State<UploadPage> {
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: _isSuccess
-                      ? const Color(0xFF0e9f6e).withOpacity(0.1)
+                      ? kEmerald.withOpacity(0.08)
                       : Colors.red.shade50,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: _isSuccess
-                        ? const Color(0xFF0e9f6e)
-                        : Colors.red.shade300,
+                    color: _isSuccess ? kEmerald : Colors.red.shade300,
                   ),
                 ),
                 child: Text(
                   _statusMessage,
                   style: TextStyle(
-                    color: _isSuccess
-                        ? const Color(0xFF0e9f6e)
-                        : Colors.red.shade700,
+                    color:
+                        _isSuccess ? kEmeraldDeep : Colors.red.shade700,
                     fontSize: 14,
                   ),
                 ),
               ),
             ],
+
+            const SizedBox(height: 16),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildGuideRow(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4),
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 13, color: kEmeraldDeep),
       ),
     );
   }
@@ -388,14 +414,23 @@ class _UploadPageState extends State<UploadPage> {
     return GestureDetector(
       onTap: () => setState(() => _selectedTingkatan = tingkatan),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+        padding:
+            const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF1565C0) : Colors.grey.shade100,
+          color: isSelected ? kEmerald : Colors.grey.shade100,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color:
-                isSelected ? const Color(0xFF1565C0) : Colors.grey.shade300,
+            color: isSelected ? kEmerald : Colors.grey.shade300,
           ),
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: kEmerald.withOpacity(0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
+                  )
+                ]
+              : [],
         ),
         child: Text(
           'Tingkatan $tingkatan',
