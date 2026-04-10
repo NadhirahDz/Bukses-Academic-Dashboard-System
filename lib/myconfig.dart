@@ -1,3 +1,3 @@
 class MyConfig {
-  static const String apiUrl = "http://192.168.1.8/school_api";
+  static const String apiUrl = "http://172.20.10.14/school_api";
 }

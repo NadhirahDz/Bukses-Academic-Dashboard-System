@@ -25,7 +25,7 @@ class _DashboardPageState extends State<DashboardPage> {
     'teacher_form4':
         'https://lookerstudio.google.com/embed/reporting/ecb73835-335d-4792-92a8-02db246b0b6b/page/p_hgvwo4uj1d',
     'teacher_form5':
-        'https://lookerstudio.google.com/embed/reporting/766f40a4-1028-45bc-9a38-3dc8b09a1bca/page/p_nhnn913n1d',
+        'https://lookerstudio.google.com/embed/reporting/73e1c1f2-fb98-4fa4-bc34-408b3ed243b8/page/p_hgvwo4uj1d',
   };
 
   @override
