@@ -1,0 +1,18 @@
+{
+    "name": "nurulnadhirah/school_api",
+    "authors": [
+        {
+            "name": "nadh",
+            "email": "nrlndh04@gmail.com"
+        }
+    ],
+    "require": {
+        "google/apiclient": "2.15",
+        "phpoffice/phpspreadsheet": "^5.5"
+    },
+    "config": {
+        "audit": {
+            "block-insecure": false
+        }
+    }
+}
