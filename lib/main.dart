@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:school/dashboard_page.dart';
 import 'package:school/home_page.dart';
 import 'package:school/splashscreen.dart';
@@ -18,11 +19,43 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Sistem Sekolah',
+      title: 'Sistem Prestasi Pelajar',
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        textTheme: GoogleFonts.poppinsTextTheme(),
+        useMaterial3: true,
+      ),
       initialRoute: '/splash',
       routes: {
         '/': (context) => const LoginPage(),
+        '/splash': (context) => const SplashScreen(),
+        // Admin goes to HomeMenuPage (has Kemaskini Data)
+        '/admin': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments
+              as Map<String, dynamic>;
+          return HomeMenuPage(
+            name: args['name'] ?? 'Pentadbir',
+            role: 'admin',
+            password: args['password'] ?? '',
+          );
+        },
+        // Teachers go DIRECTLY to dashboard
+        '/teacher4': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments
+              as Map<String, dynamic>;
+          return DashboardPage(
+            name: args['name'] ?? 'Cikgu',
+            role: 'teacher_form4',
+          );
+        },
+        '/teacher5': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments
+              as Map<String, dynamic>;
+          return DashboardPage(
+            name: args['name'] ?? 'Cikgu',
+            role: 'teacher_form5',
+          );
+        },
         '/home': (context) {
           final args = ModalRoute.of(context)!.settings.arguments
               as Map<String, dynamic>;
@@ -31,33 +64,14 @@ class MyApp extends StatelessWidget {
             role: args['role'] ?? 'teacher_form4',
           );
         },
-        '/admin': (context) {
+        '/dashboard': (context) {
           final args = ModalRoute.of(context)!.settings.arguments
               as Map<String, dynamic>;
-          return HomeMenuPage(
-            name: args['name'] ?? 'Pentadbir',
-            role: 'admin',
+          return DashboardPage(
+            name: args['name'] ?? '',
+            role: args['role'] ?? 'admin',
           );
         },
-        '/teacher4': (context) {
-          final args = ModalRoute.of(context)!.settings.arguments
-              as Map<String, dynamic>;
-          return HomeMenuPage(
-            name: args['name'] ?? 'Cikgu',
-            role: 'teacher_form4',
-          );
-        },
-        '/teacher5': (context) {
-          final args = ModalRoute.of(context)!.settings.arguments
-              as Map<String, dynamic>;
-          return HomeMenuPage(
-            name: args['name'] ?? 'Cikgu',
-            role: 'teacher_form5',
-          );
-        },
-        '/splash': (context) => const SplashScreen(),
-        '/': (context) => const LoginPage(),
-        '/dashboard': (context) => const DashboardPage(),
         '/update': (context) => const UploadPage(),
       },
     );

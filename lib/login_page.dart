@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'myconfig.dart';
@@ -110,7 +111,7 @@ class _LoginPageState extends State<LoginPage>
 
         if (role == 'admin') {
           Navigator.pushReplacementNamed(context, '/admin',
-              arguments: {'name': name, 'role': role});
+              arguments: {'name': name, 'role': role, 'password': password});
         } else if (role == 'teacher_form4') {
           Navigator.pushReplacementNamed(context, '/teacher4',
               arguments: {'name': name, 'role': role});
@@ -198,22 +199,23 @@ class _LoginPageState extends State<LoginPage>
 
                           const SizedBox(height: 20),
 
-                          const Text(
+                          Text(
                             'Sistem Prestasi Pelajar',
-                            style: TextStyle(
+                            style: GoogleFonts.poppins(
                               color: Colors.white,
                               fontSize: 22,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w700,
                               letterSpacing: 0.5,
                             ),
                           ),
                           const SizedBox(height: 4),
                           Text(
                             'SMKBBKH',
-                            style: TextStyle(
+                            style: GoogleFonts.poppins(
                               color: Colors.white.withOpacity(0.75),
-                              fontSize: 14,
-                              letterSpacing: 2,
+                              fontSize: 13,
+                              letterSpacing: 3,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
 
@@ -236,18 +238,18 @@ class _LoginPageState extends State<LoginPage>
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
+                                Text(
                                   'Log Masuk',
-                                  style: TextStyle(
+                                  style: GoogleFonts.poppins(
                                     fontSize: 22,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w700,
                                     color: kEmeraldDeep,
                                   ),
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
                                   'Masukkan maklumat akaun anda',
-                                  style: TextStyle(
+                                  style: GoogleFonts.poppins(
                                     fontSize: 13,
                                     color: Colors.grey[500],
                                   ),
@@ -337,11 +339,11 @@ class _LoginPageState extends State<LoginPage>
                                               strokeWidth: 2.5,
                                             ),
                                           )
-                                        : const Text(
+                                        : Text(
                                             'Log Masuk',
-                                            style: TextStyle(
+                                            style: GoogleFonts.poppins(
                                               fontSize: 16,
-                                              fontWeight: FontWeight.bold,
+                                              fontWeight: FontWeight.w700,
                                               letterSpacing: 0.5,
                                             ),
                                           ),

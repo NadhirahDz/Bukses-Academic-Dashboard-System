@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeMenuPage extends StatelessWidget {
   final String name;
   final String role;
+  final String password;
 
   static const Color kEmerald = Color(0xFF059669);
   static const Color kEmeraldDark = Color(0xFF047857);
   static const Color kEmeraldDeep = Color(0xFF064E3B);
   static const Color kEmeraldLight = Color(0xFF6EE7B7);
 
-  const HomeMenuPage({super.key, required this.name, required this.role});
+  const HomeMenuPage(
+      {super.key,
+      required this.name,
+      required this.role,
+      this.password = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -22,134 +28,175 @@ class HomeMenuPage extends StatelessWidget {
             colors: [
               kEmeraldDeep,
               kEmeraldDark,
-              kEmerald,
+              Color(0xFF059669),
             ],
           ),
         ),
         child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Header
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            children: [
+              // ── Custom AppBar area ──────────────────────────────
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                child: Row(
                   children: [
-                    Row(
-                      children: [
-                        // Avatar circle
-                        Container(
-                          width: 48,
-                          height: 48,
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.2),
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white.withOpacity(0.5),
-                              width: 2,
-                            ),
-                          ),
-                          child: const Icon(
-                            Icons.person,
-                            color: Colors.white,
-                            size: 26,
-                          ),
-                        ),
-                        const SizedBox(width: 14),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Selamat Datang,',
-                              style: TextStyle(
-                                color: Colors.white.withOpacity(0.8),
-                                fontSize: 13,
-                              ),
-                            ),
-                            Text(
-                              name,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 2),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 2),
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Text(
-                                _getRoleLabel(role),
-                                style: const TextStyle(
-                                  color: kEmeraldLight,
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
+                    // Avatar
+                    Container(
+                      width: 52,
+                      height: 52,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            kEmeraldLight.withOpacity(0.5),
+                            kEmerald.withOpacity(0.5),
                           ],
                         ),
-                      ],
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                            color: Colors.white.withOpacity(0.5), width: 2),
+                      ),
+                      child: const Icon(
+                        Icons.admin_panel_settings_rounded,
+                        color: Colors.white,
+                        size: 26,
+                      ),
+                    ),
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Selamat Datang,',
+                            style: GoogleFonts.poppins(
+                              color: Colors.white.withOpacity(0.7),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            name,
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 3),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: kEmeraldLight.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                  color: kEmeraldLight.withOpacity(0.4)),
+                            ),
+                            child: Text(
+                              _getRoleLabel(role),
+                              style: GoogleFonts.poppins(
+                                color: kEmeraldLight,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     // Logout button
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.15),
+                    Tooltip(
+                      message: 'Log Keluar',
+                      child: InkWell(
+                        onTap: () =>
+                            Navigator.pushReplacementNamed(context, '/'),
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: Colors.white.withOpacity(0.3),
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.12),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                                color: Colors.white.withOpacity(0.25)),
+                          ),
+                          child: const Icon(Icons.logout_rounded,
+                              color: Colors.white, size: 20),
                         ),
-                      ),
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(context, '/');
-                        },
-                        icon: const Icon(Icons.logout, color: Colors.white),
-                        tooltip: 'Log Keluar',
                       ),
                     ),
                   ],
                 ),
+              ),
 
-                const SizedBox(height: 40),
+              const SizedBox(height: 28),
 
-                // Divider
-                Container(
+              // Divider
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
                   height: 1,
-                  color: Colors.white.withOpacity(0.15),
-                ),
-
-                const SizedBox(height: 32),
-
-                // Title
-                Text(
-                  'Pilih Tindakan',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.7),
-                    fontSize: 13,
-                    letterSpacing: 1.5,
-                    fontWeight: FontWeight.w600,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.transparent,
+                        Colors.white.withOpacity(0.3),
+                        Colors.transparent,
+                      ],
+                    ),
                   ),
                 ),
-                const SizedBox(height: 16),
+              ),
 
-                // Two menu cards
-                Expanded(
+              const SizedBox(height: 28),
+
+              // Section title
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 4,
+                      height: 16,
+                      decoration: BoxDecoration(
+                        color: kEmeraldLight,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      'PILIH TINDAKAN',
+                      style: GoogleFonts.poppins(
+                        color: Colors.white.withOpacity(0.65),
+                        fontSize: 11,
+                        letterSpacing: 2,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              // Menu cards
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
                     children: [
                       // View Dashboard
                       Expanded(
                         child: _buildMenuCard(
                           context,
-                          icon: Icons.dashboard_rounded,
+                          icon: Icons.bar_chart_rounded,
+                          gradientColors: [
+                            const Color(0xFF059669),
+                            const Color(0xFF047857),
+                          ],
                           title: 'Lihat\nDashboard',
                           subtitle: 'Papar prestasi pelajar',
-                          iconBgColor: kEmerald,
                           onTap: () {
                             Navigator.pushNamed(
                               context,
@@ -159,20 +206,29 @@ class HomeMenuPage extends StatelessWidget {
                           },
                         ),
                       ),
+
                       const SizedBox(width: 16),
+
                       // Update Data
                       Expanded(
                         child: _buildMenuCard(
                           context,
                           icon: Icons.upload_file_rounded,
+                          gradientColors: [
+                            const Color(0xFF065f46),
+                            const Color(0xFF064E3B),
+                          ],
                           title: 'Kemaskini\nData',
                           subtitle: 'Muat naik fail / data',
-                          iconBgColor: kEmeraldDark,
                           onTap: () {
                             Navigator.pushNamed(
                               context,
                               '/update',
-                              arguments: {'name': name, 'role': role},
+                              arguments: {
+                                'name': name,
+                                'role': role,
+                                'password': password,
+                              },
                             );
                           },
                         ),
@@ -180,21 +236,23 @@ class HomeMenuPage extends StatelessWidget {
                     ],
                   ),
                 ),
+              ),
 
-                const SizedBox(height: 16),
+              const SizedBox(height: 20),
 
-                // Footer
-                Center(
-                  child: Text(
-                    'Sistem Prestasi Pelajar SMKBBKH',
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(0.4),
-                      fontSize: 11,
-                    ),
+              // Footer
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: Text(
+                  '© Sistem Prestasi Pelajar SMKBBKH',
+                  style: GoogleFonts.poppins(
+                    color: Colors.white.withOpacity(0.35),
+                    fontSize: 10,
+                    letterSpacing: 0.5,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -204,9 +262,9 @@ class HomeMenuPage extends StatelessWidget {
   Widget _buildMenuCard(
     BuildContext context, {
     required IconData icon,
+    required List<Color> gradientColors,
     required String title,
     required String subtitle,
-    required Color iconBgColor,
     required VoidCallback onTap,
   }) {
     return GestureDetector(
@@ -217,78 +275,90 @@ class HomeMenuPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.15),
-              blurRadius: 20,
-              offset: const Offset(0, 8),
+              color: Colors.black.withOpacity(0.18),
+              blurRadius: 24,
+              offset: const Offset(0, 10),
             ),
           ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(24),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Icon container
+              // Top gradient banner
               Container(
-                width: 72,
-                height: 72,
+                height: 100,
+                width: double.infinity,
                 decoration: BoxDecoration(
-                  color: iconBgColor.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(20),
+                  gradient: LinearGradient(
+                    colors: gradientColors,
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
                 ),
-                child: Icon(
-                  icon,
-                  size: 36,
-                  color: iconBgColor,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                  color: kEmeraldDeep,
-                  height: 1.3,
+                child: Center(
+                  child: Icon(icon, size: 48, color: Colors.white),
                 ),
               ),
-              const SizedBox(height: 8),
-              Text(
-                subtitle,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey[500],
-                ),
-              ),
-              const SizedBox(height: 16),
-              // Arrow indicator
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                decoration: BoxDecoration(
-                  color: iconBgColor.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Buka',
-                      style: TextStyle(
-                        color: iconBgColor,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
+              // Bottom text area
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        title,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: kEmeraldDeep,
+                          height: 1.3,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 4),
-                    Icon(
-                      Icons.arrow_forward_rounded,
-                      color: iconBgColor,
-                      size: 14,
-                    ),
-                  ],
+                      const SizedBox(height: 6),
+                      Text(
+                        subtitle,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.poppins(
+                          fontSize: 11,
+                          color: Colors.grey[500],
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 7),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: gradientColors,
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Buka',
+                              style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(width: 4),
+                            const Icon(
+                              Icons.arrow_forward_rounded,
+                              color: Colors.white,
+                              size: 13,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
